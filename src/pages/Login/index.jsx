@@ -51,7 +51,6 @@ const Login = () => {
           <p>Ainda não possui uma conta?</p>
           <Link className="link"
             to="/register"
-            buttonColor="#868E96"
           >
             Cadastre-se
           </Link>

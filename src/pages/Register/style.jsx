@@ -2,7 +2,6 @@ import styled from 'styled-components'
 
 export const SectionS = styled.section`
       width: 296px;
-      height: calc(417.69px+22.83px);
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -13,6 +12,7 @@ export const DivS = styled.div`
             display: flex;
             justify-content: space-between;
             flex-direction: row;
+            align-items: flex-end;
 
             button{
                   background-color: #212529;
@@ -26,7 +26,7 @@ export const DivS = styled.div`
 
 export const FormS = styled.form`
       width: 296px;
-      height: 568.47px;
+      height: 668.47px;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -58,6 +58,12 @@ export const FormS = styled.form`
             border-radius: 3.3px;
             border: none;
             padding: 0px 13.0293px;
+      }
+
+      div textarea{
+            background-color: #343B41;
+            resize: none;
+            overflow-y: scroll;
       }
 
       div select, option{
