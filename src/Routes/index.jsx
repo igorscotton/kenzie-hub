@@ -1,13 +1,15 @@
 import {Switch, Route} from 'react-router-dom'
 import Login from '../pages/Login'
-
+import Register from '../pages/Register'
 const Routes = () => {
       return(
             <Switch>
-                  <Route path='/'>
+                  <Route exact path='/'>
                         <Login></Login>
                   </Route>
-                  <Route path='/register'></Route>
+                  <Route path='/register'>
+                        <Register></Register>
+                  </Route>
                   <Route path='/home'></Route>
             </Switch>
       )

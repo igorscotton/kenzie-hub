@@ -1,6 +1,6 @@
 import Logo from "../../Logo.svg";
 import { SectionS, FormS, ButtonS } from "./style";
-import { useHistory } from "react-router-dom";
+import { Link } from "react-router-dom";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
@@ -20,8 +20,6 @@ const Login = () => {
   });
 
   const onLogin = (data) => console.log(data);
-
-  const history = useHistory();
 
   return (
     <SectionS>
@@ -51,12 +49,12 @@ const Login = () => {
         </div>
         <div>
           <p>Ainda não possui uma conta?</p>
-          <ButtonS
-            onClick={() => history.push("/register")}
+          <Link className="link"
+            to="/register"
             buttonColor="#868E96"
           >
             Cadastre-se
-          </ButtonS>
+          </Link>
         </div>
       </FormS>
     </SectionS>

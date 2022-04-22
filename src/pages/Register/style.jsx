@@ -8,10 +8,25 @@ export const SectionS = styled.section`
       align-items: center;
       gap: 22.83px;
 `
+export const DivS = styled.div`
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            flex-direction: row;
+
+            button{
+                  background-color: #212529;
+                  width: 67.5px;
+                  height: 32px;
+                  font-size: 10px;
+                  font-weight: 600;
+            }
+      
+`
 
 export const FormS = styled.form`
       width: 296px;
-      height: 402.69px;
+      height: 568.47px;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -37,12 +52,16 @@ export const FormS = styled.form`
             align-self: flex-start;
       }
 
-      div input{
+      div input, div select{
             background-color: #343B41;
             height: 38.5px;
             border-radius: 3.3px;
             border: none;
             padding: 0px 13.0293px;
+      }
+
+      div select, option{
+            color: #868E96;
       }
 
       p{
@@ -53,25 +72,12 @@ export const FormS = styled.form`
             color: #868E96;
       }
 
-      .link{
-            background-color: #868E96;
-            width: 100%;
-            color: #F8F9FA;
-            border: none;
-            font-weight: 500;
-            height: 38.5px;
-            border-radius: 4px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-decoration: none;
-            font-size: 13px;
-      }
+
 ` 
 
 export const ButtonS = styled.button`
             width: 100%;
-            background-color: #FF577F;
+            background-color: #59323F;
             color: #F8F9FA;
             border: none;
             font-weight: 500;
