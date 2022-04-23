@@ -1,11 +1,15 @@
 import Logo from "../../Logo.svg";
 import { SectionS, FormS, ButtonS } from "./style";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
+import axios from 'axios'
+
 
 const Login = () => {
+  const history = useHistory();
+
   const schema = yup.object().shape({
     email: yup.string().required("Campo obrigatório!"),
     password: yup.string().required("Campo obrigatório!"),
@@ -19,7 +23,17 @@ const Login = () => {
     resolver: yupResolver(schema),
   });
 
-  const onLogin = (data) => console.log(data);
+  const onLogin = async (data) => {
+      await axios.post("https://kenziehub.herokuapp.com/sessions", data).then((res) => { 
+      console.log(res);
+      const token = res.data.token;
+      const id = res.data.user.id;
+      window.localStorage.setItem('@tokenKenzieHub', token)
+      window.localStorage.setItem('@idKenzieHub', JSON.stringify(id))
+      history.push(`/user/${id}`)  
+    }).catch((error) => error)
+   
+  };
 
   return (
     <SectionS>
@@ -45,7 +59,7 @@ const Login = () => {
           />
         </div>
         <div>
-          <ButtonS type="submit">Entrar</ButtonS>
+          <ButtonS type='submit'>Entrar</ButtonS>
         </div>
         <div>
           <p>Ainda não possui uma conta?</p>

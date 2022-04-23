@@ -67,6 +67,9 @@ export const FormS = styled.form`
             text-decoration: none;
             font-size: 13px;
       }
+      .link__red{
+            background-color: #FF577F;
+      }
 ` 
 
 export const ButtonS = styled.button`
