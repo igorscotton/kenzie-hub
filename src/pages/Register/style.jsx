@@ -78,7 +78,13 @@ export const FormS = styled.form`
             color: #868E96;
       }
 
-
+      span{
+            font-size: 8px;
+            color: red;
+            font-weight: bold;
+            align-self: flex-start;
+            margin-left: 20px;
+      }
 ` 
 
 export const ButtonS = styled.button`

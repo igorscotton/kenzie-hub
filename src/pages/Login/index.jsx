@@ -4,8 +4,7 @@ import { Link, useHistory } from "react-router-dom";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
-import axios from 'axios'
-
+import axios from "axios";
 
 const Login = () => {
   const history = useHistory();
@@ -24,15 +23,16 @@ const Login = () => {
   });
 
   const onLogin = async (data) => {
-      await axios.post("https://kenziehub.herokuapp.com/sessions", data).then((res) => { 
-      console.log(res);
-      const token = res.data.token;
-      const id = res.data.user.id;
-      window.localStorage.setItem('@tokenKenzieHub', token)
-      window.localStorage.setItem('@idKenzieHub', JSON.stringify(id))
-      history.push(`/user/${id}`)  
-    }).catch((error) => error)
-   
+    await axios
+      .post("https://kenziehub.herokuapp.com/sessions", data)
+      .then((res) => {
+        const token = res.data.token;
+        const id = res.data.user.id;
+        window.localStorage.setItem("@tokenKenzieHub", token);
+        window.localStorage.setItem("@idKenzieHub", id);
+        history.push(`/user/${id}`);
+      })
+      .catch((error) => error);
   };
 
   return (
@@ -59,13 +59,11 @@ const Login = () => {
           />
         </div>
         <div>
-          <ButtonS type='submit'>Entrar</ButtonS>
+          <ButtonS type="submit">Entrar</ButtonS>
         </div>
         <div>
           <p>Ainda não possui uma conta?</p>
-          <Link className="link"
-            to="/register"
-          >
+          <Link className="link" to="/register">
             Cadastre-se
           </Link>
         </div>

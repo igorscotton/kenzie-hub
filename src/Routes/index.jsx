@@ -1,12 +1,11 @@
-import { Switch, Route } from "react-router-dom";
+import { Switch, Route, Redirect } from "react-router-dom";
 import Login from "../pages/Login";
 import Register from "../pages/Register";
 import User from "../pages/User";
-import { useState } from "react";
 
 const Routes = () => {
+  const id = window.localStorage.getItem("@idKenzieHub")
   
-
   return (
     <Switch>
       <Route exact path="/">
@@ -15,8 +14,8 @@ const Routes = () => {
       <Route path="/register">
         <Register></Register>
       </Route>
-      <Route path="/user/:id">
-        <User></User>
+      <Route exact path="/user/:id">
+        {id ? <User></User> : <Redirect to="/" />}
       </Route>
     </Switch>
   );

@@ -32,6 +32,9 @@ const Register = () => {
       .string()
       .required("Campo obrigatório")
       .oneOf([yup.ref("password")]),
+    bio: yup.string().required("Campo obrigatório!").min(30, 'Sua bio precisa ter pelo menos 30 caracteres'),
+    contact: yup.string().required("Campo obrigatório!")    
+
   });
 
   const {
@@ -42,10 +45,9 @@ const Register = () => {
     resolver: yupResolver(schema),
   });
 
-  const onRegister = (data) => {
-    console.log(data);
+  const onRegister = (data) => {   
     delete data.confirmPassword;
-    console.log(data);
+
     axios
       .post("https://kenziehub.herokuapp.com/users", data)
       .then((res) => {
@@ -77,6 +79,7 @@ const Register = () => {
             {...register("name")}
           />
         </div>
+        <span>{errors.name?.message}</span>
         <div>
           <label htmlFor="email">E-mail</label>
           <input
@@ -86,6 +89,7 @@ const Register = () => {
             {...register("email")}
           />
         </div>
+        <span>{errors.email?.message}</span>
         <div>
           <label htmlFor="password">Senha</label>
           <input
@@ -95,6 +99,7 @@ const Register = () => {
             {...register("password")}
           />
         </div>
+        <span>{errors.password?.message}</span>
         <div>
           <label htmlFor="confirmPassword">Confirmar senha</label>
           <input
@@ -104,6 +109,7 @@ const Register = () => {
             {...register("confirmPassword")}
           />
         </div>
+        <span>{errors.confirmPassword?.message}</span>
         <div>
           <label htmlFor="bio">Bio</label>
           <textarea
@@ -113,6 +119,7 @@ const Register = () => {
             {...register("bio")}
           />
         </div>
+        <span>{errors.bio?.message}</span>
         <div>
           <label htmlFor="contact">Rede Social</label>
           <input
@@ -122,6 +129,7 @@ const Register = () => {
             {...register("contact")}
           />
         </div>
+        <span>{errors.contact?.message}</span>
         <div>
           <label htmlFor="modulo">Selecionar Módulo</label>
           <select name="modulo" id="" {...register("course_module")}>

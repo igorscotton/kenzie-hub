@@ -27,6 +27,10 @@ export const ContainerS = styled.div`
              margin-right: 13px;
       }
 
+      header button:hover{
+            background-color: #343B41;
+      }
+
       header img{
             margin-left: 13px;
       }
@@ -76,11 +80,32 @@ export const ContainerS = styled.div`
             color: #FFFFFF;
       }
 
+      main div button:hover{
+            background-color: #343B41;
+      }
+
       main ul{
             padding: 0;
             background-color: #212529;
             margin: 0 15px 0 15px;
             padding: 5px; 
+      }
+
+      @media screen and (min-width:600px){
+            section{
+                  flex-direction: row;
+                  align-items: center;
+                  justify-content: space-between;
+            }
+
+            section h1{
+                  margin-bottom: 0;
+            }
+
+            section span{
+                  margin-left: 0;
+                  margin-right: 13px;
+            }
       }
 `
 
