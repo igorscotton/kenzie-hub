@@ -45,9 +45,9 @@ const Register = () => {
     resolver: yupResolver(schema),
   });
 
-  const onRegister = (data) => {   
-    delete data.confirmPassword;
-
+  const onRegister = ({name, email, password, bio, contact, course_module}) => {
+    const data = {name, email, password, bio, contact, course_module}
+    console.log(data)
     axios
       .post("https://kenziehub.herokuapp.com/users", data)
       .then((res) => {

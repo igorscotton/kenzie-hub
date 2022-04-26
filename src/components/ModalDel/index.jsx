@@ -26,7 +26,6 @@ const ModalDel = ({ openM, handleCloseM, setPathTecnology, idTech, setDeleteTecn
   });
 
   const onTecnologyPath = (data) => {
-    delete data.name;
     axios
       .put(`https://kenziehub.herokuapp.com/users/techs/${idTech}`, data, {
         headers: {
@@ -87,7 +86,7 @@ const ModalDel = ({ openM, handleCloseM, setPathTecnology, idTech, setDeleteTecn
             <button className="button--path" type="submit">
               Salvar Alterações
             </button>
-            <button className="button--delete" onClick={() => handleDelete()}>
+            <button type="button" className="button--delete" onClick={handleDelete}>
               Excluir
             </button>
           </DivButton>
