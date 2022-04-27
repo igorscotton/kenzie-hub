@@ -4,7 +4,7 @@ import Register from "../pages/Register";
 import User from "../pages/User";
 
 const Routes = () => {
-  const id = window.localStorage.getItem("@idKenzieHub")
+  const id = JSON.parse(window.localStorage.getItem("@idKenzieHub"))
   
   return (
     <Switch>

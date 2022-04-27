@@ -5,8 +5,13 @@ import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 import axios from "axios";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Login = () => {
+
+  const notify = () => toast("Login não efetuado!");
+
   const history = useHistory();
 
   const schema = yup.object().shape({
@@ -28,11 +33,14 @@ const Login = () => {
       .then((res) => {
         const token = res.data.token;
         const id = res.data.user.id;
-        window.localStorage.setItem("@tokenKenzieHub", token);
-        window.localStorage.setItem("@idKenzieHub", id);
+        window.localStorage.setItem("@tokenKenzieHub", JSON.stringify(token));
+        window.localStorage.setItem("@idKenzieHub", JSON.stringify(id));
         history.push(`/user/${id}`);
       })
-      .catch((error) => error);
+      .catch((error) => {
+        notify();
+        console.log(error)
+      });
   };
 
   return (
@@ -68,6 +76,7 @@ const Login = () => {
           </Link>
         </div>
       </FormS>
+      <ToastContainer />
     </SectionS>
   );
 };

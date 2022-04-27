@@ -32,7 +32,7 @@ const User = () => {
 
   useEffect(() => {
     axios
-      .get(`https://kenziehub.herokuapp.com/users/${id ? id : window.locaStorage.getItem('@idKenzieHub')}`)
+      .get(`https://kenziehub.herokuapp.com/users/${id ? id : JSON.parse(window.locaStorage.getItem('@idKenzieHub'))}`)
       .then((res) => {
         setUser(res.data);
       })
