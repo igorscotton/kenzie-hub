@@ -5,8 +5,11 @@ import { useEffect, useState } from "react";
 import { ContainerS, LiS } from "./style";
 import ModalTec from "../../components/Modal";
 import ModalDel from "../../components/ModalDel";
-import { useHistory } from "react-router-dom";
-const User = () => {
+import { toast } from "react-toastify";
+
+import { Redirect } from "react-router-dom";
+
+const User = ({auth, setAuth}) => {
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -20,7 +23,7 @@ const User = () => {
   const handleCloseM = () => setOpenM(false);
 
   const { id } = useParams();
-
+  
   const [user, setUser] = useState({});
   const [tecnology, setTecnology] = useState([]);
   const [idTech, setidTech] = useState("");
@@ -28,16 +31,18 @@ const User = () => {
   const [deleteTecnology, setDeleteTecnology] = useState(true);
   const [name, setName] = useState('')
 
-  const history = useHistory();
-
   useEffect(() => {
     axios
-      .get(`https://kenziehub.herokuapp.com/users/${id ? id : JSON.parse(window.locaStorage.getItem('@idKenzieHub'))}`)
+      .get(`https://kenziehub.herokuapp.com/users/${id ? id : JSON.parse(localStorage.getItem('@idKenzieHub'))}`)
       .then((res) => {
         setUser(res.data);
       })
       .catch((error) => console.log(error));
   }, [id, tecnology, pathTecnology, deleteTecnology]);
+
+  if(!auth){
+    return <Redirect to="/"/>
+  }
 
   return (
     <ContainerS>
@@ -59,9 +64,9 @@ const User = () => {
       <header>
         <img src={Logo} alt="" />
         <button onClick={() => {
-            window.localStorage.removeItem('@idKenzieHub')
-            window.localStorage.removeItem('@tokenKenzieHub')
-            history.push('/')
+           localStorage.removeItem('@idKenzieHub')
+           localStorage.removeItem('@tokenKenzieHub')
+           setAuth(false)
         }}>Sair</button>
       </header>
       <section>

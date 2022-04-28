@@ -1,17 +1,13 @@
 import Logo from "../../Logo.svg";
 import { SectionS, FormS, ButtonS } from "./style";
-import { Link, useHistory } from "react-router-dom";
+import { Link, useHistory, Redirect } from "react-router-dom";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 import axios from "axios";
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { toast } from "react-toastify";
 
-const Login = () => {
-
-  const notify = () => toast("Login não efetuado!");
-
+const Login = ({ auth, setAuth }) => {
   const history = useHistory();
 
   const schema = yup.object().shape({
@@ -27,19 +23,47 @@ const Login = () => {
     resolver: yupResolver(schema),
   });
 
+  if (auth) {
+    return (
+      <Redirect
+        to={`/user/${JSON.parse(localStorage.getItem("@idKenzieHub"))}`}
+      />
+    );
+  }
+
   const onLogin = async (data) => {
+    console.log(data);
     await axios
       .post("https://kenziehub.herokuapp.com/sessions", data)
       .then((res) => {
+        console.log(res);
         const token = res.data.token;
         const id = res.data.user.id;
-        window.localStorage.setItem("@tokenKenzieHub", JSON.stringify(token));
-        window.localStorage.setItem("@idKenzieHub", JSON.stringify(id));
+        localStorage.setItem("@tokenKenzieHub", JSON.stringify(token));
+        localStorage.setItem("@idKenzieHub", JSON.stringify(id));
+        setAuth(true);
+
+        toast.success("Login realizado com sucesso!", {
+          style: {
+            backgroundColor: "#343B41",
+            color: "white",
+            fontSize: "14px",
+            fontWeight: "bold",
+          },
+        });
+
         history.push(`/user/${id}`);
       })
       .catch((error) => {
-        notify();
-        console.log(error)
+        toast.error("E-mail ou senha incorreta, Tente novamente!", {
+          style: {
+            backgroundColor: "#343B41",
+            color: "white",
+            fontSize: "14px",
+            fontWeight: "bold",
+          },
+        });
+        console.log(error);
       });
   };
 
@@ -57,6 +81,7 @@ const Login = () => {
             {...register("email")}
           />
         </div>
+        <span>{errors.email?.message}</span>
         <div>
           <label htmlFor="password">Senha</label>
           <input
@@ -66,6 +91,7 @@ const Login = () => {
             {...register("password")}
           />
         </div>
+        <span>{errors.password?.message}</span>
         <div>
           <ButtonS type="submit">Entrar</ButtonS>
         </div>
@@ -76,7 +102,6 @@ const Login = () => {
           </Link>
         </div>
       </FormS>
-      <ToastContainer />
     </SectionS>
   );
 };

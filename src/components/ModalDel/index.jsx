@@ -4,6 +4,7 @@ import { useForm } from "react-hook-form";
 import axios from "axios";
 import { Modal, Box } from "@mui/material";
 import { TitleModal, FormS, DivButton } from "./style";
+import { toast } from "react-toastify";
 
 const style = {
   position: "absolute",
@@ -16,7 +17,15 @@ const style = {
   borderRadius: 4,
 };
 
-const ModalDel = ({ openM, handleCloseM, setPathTecnology, idTech, setDeleteTecnology, deleteTecnology, name }) => {
+const ModalDel = ({
+  openM,
+  handleCloseM,
+  setPathTecnology,
+  idTech,
+  setDeleteTecnology,
+  deleteTecnology,
+  name,
+}) => {
   const schema = yup.object().shape({
     status: yup.string().required(),
   });
@@ -29,14 +38,23 @@ const ModalDel = ({ openM, handleCloseM, setPathTecnology, idTech, setDeleteTecn
     axios
       .put(`https://kenziehub.herokuapp.com/users/techs/${idTech}`, data, {
         headers: {
-          Authorization: `Bearer ${window.localStorage.getItem(
+          Authorization: `Bearer ${JSON.parse(window.localStorage.getItem(
             "@tokenKenzieHub"
-          )}`,
+          ))}`,
         },
       })
       .then((res) => {
         handleCloseM();
         setPathTecnology(res);
+        toast.success("Tecnologia atualizada com sucesso!", {
+          style: {
+            backgroundColor: "#343B41",
+            color: "white",
+            fontSize: "14px",
+            fontWeight: "bold",
+          },
+        });
+
       })
       .catch((error) => console.log(error));
   };
@@ -45,14 +63,23 @@ const ModalDel = ({ openM, handleCloseM, setPathTecnology, idTech, setDeleteTecn
     axios
       .delete(`https://kenziehub.herokuapp.com/users/techs/${idTech}`, {
         headers: {
-          Authorization: `Bearer ${window.localStorage.getItem(
-            "@tokenKenzieHub"
+          Authorization: `Bearer ${JSON.parse(
+            localStorage.getItem("@tokenKenzieHub")
           )}`,
         },
       })
       .then(() => {
         handleCloseM();
-        setDeleteTecnology(deleteTecnology ? false : true)
+        setDeleteTecnology(deleteTecnology ? false : true);
+        toast.success("Tecnologia Deletada com sucesso!", {
+          style: {
+            backgroundColor: "#343B41",
+            color: "white",
+            fontSize: "14px",
+            fontWeight: "bold",
+          },
+        });
+
       });
   };
 
@@ -86,7 +113,11 @@ const ModalDel = ({ openM, handleCloseM, setPathTecnology, idTech, setDeleteTecn
             <button className="button--path" type="submit">
               Salvar Alterações
             </button>
-            <button type="button" className="button--delete" onClick={handleDelete}>
+            <button
+              type="button"
+              className="button--delete"
+              onClick={handleDelete}
+            >
               Excluir
             </button>
           </DivButton>

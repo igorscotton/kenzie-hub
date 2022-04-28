@@ -5,6 +5,8 @@ import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 import axios from "axios";
+import { toast } from "react-toastify";
+
 
 const Register = () => {
 
@@ -51,9 +53,16 @@ const Register = () => {
     axios
       .post("https://kenziehub.herokuapp.com/users", data)
       .then((res) => {
-        return res.data ? history.push('/')  : null
+        toast.success('Conta cadastrada com sucesso!', {
+          style: {backgroundColor: '#343B41', color: "white", fontSize: "14px", fontWeight: "bold"}
+        })
+        history.push('/')  
       })
-      .catch((error) => console.log(error));
+      .catch((error) => {
+        toast.error('E-mail já existente', {
+          style: {backgroundColor: '#343B41', color: "white", fontSize: "14px", fontWeight: "bold"}
+        })
+      });
 
       
   };

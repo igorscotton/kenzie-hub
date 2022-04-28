@@ -4,6 +4,7 @@ import { useForm } from "react-hook-form";
 import axios from "axios";
 import { Modal, Box } from "@mui/material";
 import { TitleModal, FormS } from "./style";
+import { toast } from "react-toastify";
 
 const style = {
   position: 'absolute',
@@ -29,11 +30,30 @@ const ModalTec = ({ open, handleClose, setTecnology }) => {
   const onTecnology = (data) => {
     delete data.name
     axios.post('https://kenziehub.herokuapp.com/users/techs', data, {headers: {
-      'Authorization': `Bearer ${window.localStorage.getItem('@tokenKenzieHub')}`
+      'Authorization': `Bearer ${JSON.parse(localStorage.getItem('@tokenKenzieHub'))}`
     }}).then((res) =>{
       handleClose();
       setTecnology(res.data);
-    }).catch((error) => console.log(error))
+      toast.success("Tecnologia cadastradas com sucesso!", {
+        style: {
+          backgroundColor: "#343B41",
+          color: "white",
+          fontSize: "14px",
+          fontWeight: "bold",
+        },
+      });
+
+    }).catch((error) => {
+      toast.error("Tecnologia já existente!", {
+        style: {
+          backgroundColor: "#343B41",
+          color: "white",
+          fontSize: "14px",
+          fontWeight: "bold",
+        },
+      });
+      console.log(error)
+    })
   };
 
   return (
